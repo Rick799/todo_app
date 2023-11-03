@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import List from "./List";
 import Alert from "./Alert";
 
+// Function to retrieve the list from local storage
 const getLocalStorage = () => {
   let list = localStorage.getItem("list");
   if (list) {
@@ -18,11 +19,13 @@ function Todo() {
   const [editID, setEditID] = useState(null);
   const [alert, setAlert] = useState({ show: false, msg: "", type: "" });
 
+  // Function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!name) {
       showAlert(true, "danger", "please enter value");
     } else if (name && isEditing) {
+      // Update item in the list
       setList(
         list.map((item) => {
           if (item.id === editID) {
@@ -36,6 +39,7 @@ function Todo() {
       setIsEditing(false);
       showAlert(true, "success", "Item Edited");
     } else {
+      // Add a new item to the list
       showAlert(true, "success", "Item added to the list");
       const newItem = { id: new Date().getTime().toString(), title: name };
 
@@ -44,20 +48,24 @@ function Todo() {
     }
   };
 
+  // Function to display alerts
   const showAlert = (show = false, type = "", msg = "") => {
     setAlert({ show, type, msg });
   };
 
+  // Function to clear the list
   const clearList = () => {
     showAlert(true, "danger", "empty list");
     setList([]);
   };
 
+  // Function to remove an item from the list
   const removeItem = (id) => {
     showAlert(true, "danger", "item removed");
     setList(list.filter((item) => item.id !== id));
   };
 
+  // Function to edit an item in the list
   const editItem = (id) => {
     const specificItem = list.find((item) => item.id === id);
     setIsEditing(true);
@@ -65,6 +73,7 @@ function Todo() {
     setName(specificItem.title);
   };
 
+  // Store list in local storage whenever it changes
   useEffect(() => {
     localStorage.setItem("list", JSON.stringify(list));
   }, [list]);

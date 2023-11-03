@@ -14,6 +14,7 @@ const List = ({ items, removeItem, editItem }) => {
           >
             <p className="mb-0 tracking-widest text-white">{title}</p>
             <div className="btn-container">
+              {/* Button for editing an item */}
               <button
                 type="button"
                 className="cursor-pointer text-base mr-2 ease-linear duration-300 text-green-400 hover:text-green-700"
@@ -21,6 +22,7 @@ const List = ({ items, removeItem, editItem }) => {
               >
                 <FaEdit />
               </button>
+              {/* Button for removing an item */}
               <button
                 type="button"
                 className="cursor-pointer text-base mr-2 ease-linear duration-300 text-red-400 hover:text-red-800"
